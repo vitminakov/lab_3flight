@@ -1,21 +1,21 @@
-#pragma once
+п»ї#pragma once
 #include <iostream>
 #include <vector>
 #include <fstream>
 #include <algorithm>
 #include "Utils.h"
 
-//класс контейнер 
+//РєР»Р°СЃСЃ РєРѕРЅС‚РµР№РЅРµСЂ 
 template <typename T>
 class MyContainer
 {
 private:
-	std::vector<T> _records; //контейнер
+	std::vector<T> _records; //РєРѕРЅС‚РµР№РЅРµСЂ
 	std::string _sourceName;
-	bool (*_load)(T&, std::fstream*); //функция загрузки
-	void (*_save)(const T&, std::fstream*); //функция сохранения
+	bool (*_load)(T&, std::fstream*); //С„СѓРЅРєС†РёСЏ Р·Р°РіСЂСѓР·РєРё
+	void (*_save)(const T&, std::fstream*); //С„СѓРЅРєС†РёСЏ СЃРѕС…СЂР°РЅРµРЅРёСЏ
 
-									//сохранение в файл
+									//СЃРѕС…СЂР°РЅРµРЅРёРµ РІ С„Р°Р№Р»
 	void Save() {
 		if (_sourceName == "") {
 			return;
@@ -34,7 +34,7 @@ public:
 		_sourceName = "";
 	}
 
-	//конструктор
+	//РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 	MyContainer(std::string fileName, bool(*ld)(T&, std::fstream*),
 		void(*sv)(const T&, std::fstream*))
 	{
@@ -60,29 +60,29 @@ public:
 		file.close();
 	}
 
-	//деструктор
+	//РґРµСЃС‚СЂСѓРєС‚РѕСЂ
 	~MyContainer() {
 		Save();
 		_records.clear();
 	}
 
-	//кол-во элементов в контейнере
+	//РєРѕР»-РІРѕ СЌР»РµРјРµРЅС‚РѕРІ РІ РєРѕРЅС‚РµР№РЅРµСЂРµ
 	int Count() {
 		return _records.size();
 	}
 	T GetElem(int ind) {
 		if (ind < 0 || ind >= _records.size()) {
-			throw "Неверный индекс";
+			throw "РќРµРІРµСЂРЅС‹Р№ РёРЅРґРµРєСЃ";
 		}
 		return _records[ind];
 	}
 
-	//сортировка
+	//СЃРѕСЂС‚РёСЂРѕРІРєР°
 	void Sort(bool(*compare)(const T&, const T&)) {
 		std::sort(_records.begin(), _records.end(), compare);
 	}
 
-	//выборка подмножества по заданному критерию
+	//РІС‹Р±РѕСЂРєР° РїРѕРґРјРЅРѕР¶РµСЃС‚РІР° РїРѕ Р·Р°РґР°РЅРЅРѕРјСѓ РєСЂРёС‚РµСЂРёСЋ
 	MyContainer<T> LinearSearchSubSet(bool(*func)(T, T), T crit) {
 		MyContainer<T> subSet;
 		for (T rec : _records) {
@@ -93,7 +93,7 @@ public:
 		return subSet;
 	}
 
-	//возвращает индекс элемента с заданным критерием
+	//РІРѕР·РІСЂР°С‰Р°РµС‚ РёРЅРґРµРєСЃ СЌР»РµРјРµРЅС‚Р° СЃ Р·Р°РґР°РЅРЅС‹Рј РєСЂРёС‚РµСЂРёРµРј
 	int LinearSearch(bool (*func)(const T&, const T&), T crit) {
 		int i = 0;
 		for (T rec : _records) {
@@ -106,7 +106,7 @@ public:
 	}
 
 
-	//бинарный поиск
+	//Р±РёРЅР°СЂРЅС‹Р№ РїРѕРёСЃРє
 	MyContainer<T> BinarySearch(int(*func)(T, T), bool(*compare)(T, T), T crit) {
 		Sort(compare);
 		MyContainer<T> subSet;
@@ -138,39 +138,39 @@ public:
 		return subSet;
 	}
 
-	//очистка
+	//РѕС‡РёСЃС‚РєР°
 	void Clear() {
 		_records.clear();
 		Save();
 	}
 
-	//добавить 
+	//РґРѕР±Р°РІРёС‚СЊ 
 	void Add(T client) {
 		_records.push_back(client);
 		Save();
 	}
 
-	//удаление по индексу
+	//СѓРґР°Р»РµРЅРёРµ РїРѕ РёРЅРґРµРєСЃСѓ
 	void RemoveInd(int ind) {
 		if (ind < 0 || ind >= _records.size()) {
-			throw "Неверный индекс";
+			throw "РќРµРІРµСЂРЅС‹Р№ РёРЅРґРµРєСЃ";
 		}
 		_records.erase(_records.begin() + ind);
 		Save();
 	}
 
 
-	//изменение записи в консоле
+	//РёР·РјРµРЅРµРЅРёРµ Р·Р°РїРёСЃРё РІ РєРѕРЅСЃРѕР»Рµ
 	bool Change(bool(*func)(T&), int ind) {
 		if (ind < 0 || ind >= _records.size()) {
 			return false;
 		}
 		do {
 			if (func(_records[ind])) {
-				std::cout << "Запись изменена, продолжить изменение? " << std::endl;
+				std::cout << "Р—Р°РїРёСЃСЊ РёР·РјРµРЅРµРЅР°, РїСЂРѕРґРѕР»Р¶РёС‚СЊ РёР·РјРµРЅРµРЅРёРµ? " << std::endl;
 			}
 			else {
-				std::cout << "Не удалось изменить запись, продолжить? " << std::endl;
+				std::cout << "РќРµ СѓРґР°Р»РѕСЃСЊ РёР·РјРµРЅРёС‚СЊ Р·Р°РїРёСЃСЊ, РїСЂРѕРґРѕР»Р¶РёС‚СЊ? " << std::endl;
 			}
 		} while (InputQuery());
 		Save();
@@ -178,23 +178,23 @@ public:
 	}
 
 
-	//ввод с консоли
+	//РІРІРѕРґ СЃ РєРѕРЅСЃРѕР»Рё
 	void FromConsole(bool(*input)(T&)) {
 		T t;
 		do {
 			std::cout << std::endl;
 			if (input(t)) {
 				Add(t);
-				std::cout << "Запись успешно довавлена, еще? ";
+				std::cout << "Р—Р°РїРёСЃСЊ СѓСЃРїРµС€РЅРѕ РґРѕРІР°РІР»РµРЅР°, РµС‰Рµ? ";
 			}
 			else {
-				std::cout << "Введено некорректное значение, повторить? ";
+				std::cout << "Р’РІРµРґРµРЅРѕ РЅРµРєРѕСЂСЂРµРєС‚РЅРѕРµ Р·РЅР°С‡РµРЅРёРµ, РїРѕРІС‚РѕСЂРёС‚СЊ? ";
 			}
 		} while (InputQuery());
 		Save();
 	}
 
-	//считывание из файла
+	//СЃС‡РёС‚С‹РІР°РЅРёРµ РёР· С„Р°Р№Р»Р°
 	bool FromFile(bool(*input)(T&, std::fstream*), std::fstream *f) {
 		if (!f->is_open()) {
 			return false;
@@ -212,22 +212,22 @@ public:
 		return true;
 	}
 
-	//запись в поток
+	//Р·Р°РїРёСЃСЊ РІ РїРѕС‚РѕРє
 	void ToFile(void(*output)(T, std::fstream*), std::fstream *f) {
 		if (!f->is_open()) {
-			throw "Файл не открыт";
+			throw "Р¤Р°Р№Р» РЅРµ РѕС‚РєСЂС‹С‚";
 		}
 		for (T r : _records) {
 			output(r, f);
 		}
 	}
 
-	//вывод в консоль
+	//РІС‹РІРѕРґ РІ РєРѕРЅСЃРѕР»СЊ
 	void ToConsole(void(*output)(T)) {
 		std::cout << std::endl;
 		for (T r : _records) {
 			output(r);
 		}
-		std::cout << std::endl << "Всего записей: " << _records.size() << std::endl;
+		std::cout << std::endl << "Р’СЃРµРіРѕ Р·Р°РїРёСЃРµР№: " << _records.size() << std::endl;
 	}
 };

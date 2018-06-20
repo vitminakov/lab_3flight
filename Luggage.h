@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 
 #include <string>
 #include <fstream>
@@ -6,7 +6,7 @@
 
 using namespace std;
 
-// Структура "Багаж"
+// РЎС‚СЂСѓРєС‚СѓСЂР° "Р‘Р°РіР°Р¶"
 struct Luggage {
 	string owner; // passenger
 	int32_t flight;
@@ -16,14 +16,14 @@ struct Luggage {
 	double_t totalWeight;
 };
 
-// Получение сведений о багаже из консоли
+// РџРѕР»СѓС‡РµРЅРёРµ СЃРІРµРґРµРЅРёР№ Рѕ Р±Р°РіР°Р¶Рµ РёР· РєРѕРЅСЃРѕР»Рё
 bool ReadLuggage(Luggage&);
 
-// Вывод на консоль
+// Р’С‹РІРѕРґ РЅР° РєРѕРЅСЃРѕР»СЊ
 void ShowLuggage(const Luggage&);
 
-// Считывание сведений о багаже из файла
+// РЎС‡РёС‚С‹РІР°РЅРёРµ СЃРІРµРґРµРЅРёР№ Рѕ Р±Р°РіР°Р¶Рµ РёР· С„Р°Р№Р»Р°
 bool LuggageFromFile(Luggage&, fstream*);
 
-// Вывод в файл
+// Р’С‹РІРѕРґ РІ С„Р°Р№Р»
 void LuggageToFile(const Luggage&, fstream*);

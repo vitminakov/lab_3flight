@@ -1,52 +1,52 @@
-#include <iostream>
+п»ї#include <iostream>
 #include <iomanip>
 #include <ctime>
 #include "Utils.h"
 #include "Luggage.h"
 
 
-// Получение сведений о багаже из консоли
+// РџРѕР»СѓС‡РµРЅРёРµ СЃРІРµРґРµРЅРёР№ Рѕ Р±Р°РіР°Р¶Рµ РёР· РєРѕРЅСЃРѕР»Рё
 bool ReadLuggage(Luggage &luggage) {
 	string str;
 	Luggage l;
 
-	cout << "Введите ФИО владельца: ";
+	cout << "Р’РІРµРґРёС‚Рµ Р¤РРћ РІР»Р°РґРµР»СЊС†Р°: ";
 	InputStr(l.owner);
 	if ((l.owner == "") || (l.owner == " ")) return false;
 
-	cout << "Введите номер рейса: ";
+	cout << "Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ СЂРµР№СЃР°: ";
 	if (!InputNum(l.flight)) return false;
 
-	cout << "Введите дату и время вылета (дд.мм.гггг чч:мм) : ";
+	cout << "Р’РІРµРґРёС‚Рµ РґР°С‚Сѓ Рё РІСЂРµРјСЏ РІС‹Р»РµС‚Р° (РґРґ.РјРј.РіРіРіРі С‡С‡:РјРј) : ";
 	InputStr(str);
 	if (!DateTimeFromStr(str, l.departure)) return false;
 
-	cout << "Введите пункт назначения: ";
+	cout << "Р’РІРµРґРёС‚Рµ РїСѓРЅРєС‚ РЅР°Р·РЅР°С‡РµРЅРёСЏ: ";
 	InputStr(l.destination);
 	if ((l.destination == "") || (l.destination == " ")) return false;
 
-	cout << "Введите количество занимаемых багажом мест: ";
+	cout << "Р’РІРµРґРёС‚Рµ РєРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°РЅРёРјР°РµРјС‹С… Р±Р°РіР°Р¶РѕРј РјРµСЃС‚: ";
 	if (!InputNum(l.countOfPlaces)) return false;
 
-	cout << "Введите суммарный вес багажа: ";
+	cout << "Р’РІРµРґРёС‚Рµ СЃСѓРјРјР°СЂРЅС‹Р№ РІРµСЃ Р±Р°РіР°Р¶Р°: ";
 	if (!InputNum(l.totalWeight)) return false;
 
 	luggage = l;
 	return true;
 }
 
-// Вывод на консоль
+// Р’С‹РІРѕРґ РЅР° РєРѕРЅСЃРѕР»СЊ
 void ShowLuggage(const Luggage &luggage) {
 	cout << setw(25) << left << luggage.owner
 		<< setw(8) << left << luggage.flight
 		<< setw(20) << left << DateTimeToStr(luggage.departure)
 		<< setw(15) << left << luggage.destination
 		<< setw(15) << left << luggage.countOfPlaces
-		<< setw(1) << left << luggage.totalWeight << "кг." <<endl;
+		<< setw(1) << left << luggage.totalWeight << "РєРі." <<endl;
 }
 
 
-// Считывание сведений о багаже из файла
+// РЎС‡РёС‚С‹РІР°РЅРёРµ СЃРІРµРґРµРЅРёР№ Рѕ Р±Р°РіР°Р¶Рµ РёР· С„Р°Р№Р»Р°
 bool LuggageFromFile(Luggage &luggage, fstream *f) {
 	string str;
 	Luggage l;
@@ -68,11 +68,11 @@ bool LuggageFromFile(Luggage &luggage, fstream *f) {
 		return true;
 	}
 	catch (...) {
-		throw "Не удалось считать из файла";
+		throw "РќРµ СѓРґР°Р»РѕСЃСЊ СЃС‡РёС‚Р°С‚СЊ РёР· С„Р°Р№Р»Р°";
 	}
 }
 
-// Вывод в файл
+// Р’С‹РІРѕРґ РІ С„Р°Р№Р»
 void LuggageToFile(const Luggage &luggage, fstream *f) {
 	StrToBin(f, luggage.owner);
 	f->write(reinterpret_cast<char*>(const_cast<int32_t*>(&luggage.flight)), sizeof(luggage.flight));

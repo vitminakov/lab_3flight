@@ -1,4 +1,4 @@
-/* №10. Реализовать систему управления багажом. */
+п»ї/* в„–10. Р РµР°Р»РёР·РѕРІР°С‚СЊ СЃРёСЃС‚РµРјСѓ СѓРїСЂР°РІР»РµРЅРёСЏ Р±Р°РіР°Р¶РѕРј. */
 #include <iostream>
 #include <string>
 #include "DateTime.h"
@@ -7,19 +7,19 @@
 #include <Windows.h>
 
 
-/* Сдача багажа */
+/* РЎРґР°С‡Р° Р±Р°РіР°Р¶Р° */
 void DropOff(MyContainer<Luggage> &storage) {
 	Luggage luggage;
 
-	cout << "Сдача багажа" << endl;
+	cout << "РЎРґР°С‡Р° Р±Р°РіР°Р¶Р°" << endl;
 	if (ReadLuggage(luggage) == true) {
 		storage.Add(luggage);
-		cout << "Багаж успешно сдан." << endl;
+		cout << "Р‘Р°РіР°Р¶ СѓСЃРїРµС€РЅРѕ СЃРґР°РЅ." << endl;
 	}
-	else cout << "Багаж не был сдан." << endl;
+	else cout << "Р‘Р°РіР°Р¶ РЅРµ Р±С‹Р» СЃРґР°РЅ." << endl;
 }
 
-/* Получить багаж */
+/* РџРѕР»СѓС‡РёС‚СЊ Р±Р°РіР°Р¶ */
 
 void Claim(MyContainer<Luggage> &storage) {
 	auto check = [](const Luggage &l1, const Luggage& l2) {
@@ -29,17 +29,17 @@ void Claim(MyContainer<Luggage> &storage) {
 	Luggage luggage;
 	int index;
 
-	cout << "Получение багажа" << endl << "Введите ФИО владельца: ";
+	cout << "РџРѕР»СѓС‡РµРЅРёРµ Р±Р°РіР°Р¶Р°" << endl << "Р’РІРµРґРёС‚Рµ Р¤РРћ РІР»Р°РґРµР»СЊС†Р°: ";
 	InputStr(luggage.owner);
-	cout << "Введите номер рейса: ";
+	cout << "Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ СЂРµР№СЃР°: ";
 	cin >> luggage.flight;
 	cout << endl;
 
 	index = storage.LinearSearch(check, luggage);
 
-	if (index == -1) cout << "Багаж не найден." << endl;
+	if (index == -1) cout << "Р‘Р°РіР°Р¶ РЅРµ РЅР°Р№РґРµРЅ." << endl;
 	else {
-		cout << "Выдан багаж: " << endl;
+		cout << "Р’С‹РґР°РЅ Р±Р°РіР°Р¶: " << endl;
 
 		ShowHeader();
 		cout << endl;
@@ -54,17 +54,17 @@ void Claim(MyContainer<Luggage> &storage) {
 	}
 }
 
-/* Получить сведения о багаже (поиск) */
+/* РџРѕР»СѓС‡РёС‚СЊ СЃРІРµРґРµРЅРёСЏ Рѕ Р±Р°РіР°Р¶Рµ (РїРѕРёСЃРє) */
 
 void ViewAll(MyContainer<Luggage> &storage) {
 	int ans;
 
 	do {
-		cout << "Сведения о багаже" << endl
-			<< "1> По имени владельца" << endl
-			<< "2> По номеру рейса" << endl
-			<< "3> По времени отправления" << endl
-			<< "0> Выход" << endl
+		cout << "РЎРІРµРґРµРЅРёСЏ Рѕ Р±Р°РіР°Р¶Рµ" << endl
+			<< "1> РџРѕ РёРјРµРЅРё РІР»Р°РґРµР»СЊС†Р°" << endl
+			<< "2> РџРѕ РЅРѕРјРµСЂСѓ СЂРµР№СЃР°" << endl
+			<< "3> РџРѕ РІСЂРµРјРµРЅРё РѕС‚РїСЂР°РІР»РµРЅРёСЏ" << endl
+			<< "0> Р’С‹С…РѕРґ" << endl
 			<< ">";
 	} while (!InputNum(ans) || ans < 0 || ans > 3);
 	cout << endl;
@@ -81,13 +81,13 @@ void ViewAll(MyContainer<Luggage> &storage) {
 	cout << endl;
 
 	auto count = storage.Count();
-	if (count == 0) cout << "Хранилище пусто." << endl;
+	if (count == 0) cout << "РҐСЂР°РЅРёР»РёС‰Рµ РїСѓСЃС‚Рѕ." << endl;
 	else for (int i = 0; i < count; i++) ShowLuggage(storage.GetElem(i));
 	cout << endl;
 }
 
 
-/* Изъять багаж (удаление) */
+/* РР·СЉСЏС‚СЊ Р±Р°РіР°Р¶ (СѓРґР°Р»РµРЅРёРµ) */
 void Confiscate(MyContainer<Luggage> &storage) {
 	auto check = [](const Luggage &l1, const Luggage& l2) {
 		return l1.owner.compare(l2.owner) == 0 && l1.flight == l2.flight;
@@ -96,17 +96,17 @@ void Confiscate(MyContainer<Luggage> &storage) {
 	Luggage luggage;
 	int index;
 
-	cout << "Изъятие багажа" << endl << "Введите имя владельца: ";
+	cout << "РР·СЉСЏС‚РёРµ Р±Р°РіР°Р¶Р°" << endl << "Р’РІРµРґРёС‚Рµ РёРјСЏ РІР»Р°РґРµР»СЊС†Р°: ";
 	InputStr(luggage.owner);
-	cout << "Введите номер рейса: ";
+	cout << "Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ СЂРµР№СЃР°: ";
 	cin >> luggage.flight;
 	cout << endl;
 
 	index = storage.LinearSearch(check, luggage);
 
-	if (index == -1) cout << "Багаж не найден." << endl;
+	if (index == -1) cout << "Р‘Р°РіР°Р¶ РЅРµ РЅР°Р№РґРµРЅ." << endl;
 	else {
-		cout << "Изъят багаж: " << endl;
+		cout << "РР·СЉСЏС‚ Р±Р°РіР°Р¶: " << endl;
 
 		ShowHeader();
 		cout << endl;
@@ -125,11 +125,11 @@ void Menu(MyContainer<Luggage> &storage) {
 
 	while (true) {
 		do {
-			cout << "Система управления багажом" << endl;
-			cout << "Выберите режим доступа:" << endl;
-			cout << "1> Пассажир" << endl
-				<< "2> Сотрудник управления" << endl
-				<< "0> Выход" << endl
+			cout << "РЎРёСЃС‚РµРјР° СѓРїСЂР°РІР»РµРЅРёСЏ Р±Р°РіР°Р¶РѕРј" << endl;
+			cout << "Р’С‹Р±РµСЂРёС‚Рµ СЂРµР¶РёРј РґРѕСЃС‚СѓРїР°:" << endl;
+			cout << "1> РџР°СЃСЃР°Р¶РёСЂ" << endl
+				<< "2> РЎРѕС‚СЂСѓРґРЅРёРє СѓРїСЂР°РІР»РµРЅРёСЏ" << endl
+				<< "0> Р’С‹С…РѕРґ" << endl
 				<< ">";
 		} while (!InputNum(ans) || ans < 0 || ans > 2);
 		cout << endl;
@@ -138,9 +138,9 @@ void Menu(MyContainer<Luggage> &storage) {
 		case 0: return;
 		case 1:
 			do {
-				cout << "1> Сдать багаж" << endl
-					<< "2> Получить багаж" << endl
-					<< "0> Выход" << endl
+				cout << "1> РЎРґР°С‚СЊ Р±Р°РіР°Р¶" << endl
+					<< "2> РџРѕР»СѓС‡РёС‚СЊ Р±Р°РіР°Р¶" << endl
+					<< "0> Р’С‹С…РѕРґ" << endl
 					<< ">";
 			} while (!InputNum(ans) || ans < 0 || ans > 2);
 			cout << endl;
@@ -153,9 +153,9 @@ void Menu(MyContainer<Luggage> &storage) {
 			break;
 		case 2:
 			do {
-				cout << "1> Информация о багажах" << endl
-					<< "2> Изъять багаж" << endl
-					<< "0> Выход" << endl
+				cout << "1> РРЅС„РѕСЂРјР°С†РёСЏ Рѕ Р±Р°РіР°Р¶Р°С…" << endl
+					<< "2> РР·СЉСЏС‚СЊ Р±Р°РіР°Р¶" << endl
+					<< "0> Р’С‹С…РѕРґ" << endl
 					<< ">";
 			} while (!InputNum(ans) || ans < 0 || ans > 2);
 			cout << endl;
@@ -173,7 +173,7 @@ void Menu(MyContainer<Luggage> &storage) {
 
 int main() {
 	setlocale(LC_ALL, "Russian");
-	SetConsoleCP(1251);// установка кодовой страницы win-cp 1251 в поток ввода
+	SetConsoleCP(1251);// СѓСЃС‚Р°РЅРѕРІРєР° РєРѕРґРѕРІРѕР№ СЃС‚СЂР°РЅРёС†С‹ win-cp 1251 РІ РїРѕС‚РѕРє РІРІРѕРґР°
 	SetConsoleOutputCP(1251);
 
 	MyContainer<Luggage> bank("Source.dat", LuggageFromFile, LuggageToFile);

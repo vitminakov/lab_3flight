@@ -1,17 +1,17 @@
-
+п»ї
 #pragma once
 #include <fstream>
-//вопрос пользователю
+//РІРѕРїСЂРѕСЃ РїРѕР»СЊР·РѕРІР°С‚РµР»СЋ
 bool InputQuery();
 
-//ввод номера
+//РІРІРѕРґ РЅРѕРјРµСЂР°
 bool InputNum(int32_t &num);
 bool InputNum(double &num);
 
-//считывание строки из бинарного файла
+//СЃС‡РёС‚С‹РІР°РЅРёРµ СЃС‚СЂРѕРєРё РёР· Р±РёРЅР°СЂРЅРѕРіРѕ С„Р°Р№Р»Р°
 std::string StrFromBin(std::fstream *f);
 
-//запись строки в бинарный файл
+//Р·Р°РїРёСЃСЊ СЃС‚СЂРѕРєРё РІ Р±РёРЅР°СЂРЅС‹Р№ С„Р°Р№Р»
 void StrToBin(std::fstream *f, std::string str);
 
 void ShowHeader();
